@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  ds-default:
+    build: 
+        dockerfile: Dockerfile
+        context: .
+    container_name: ds-default
+    #runtime: nvidia
+    entrypoint: ["/usr/bin/entrypoint.sh"]
+    image: cwerner/ds-default:0.6.0
+    deploy:
+        resources:
+            reservations:
+                devices:
+                - capabilities: [gpu]
+
+    shm_size: '16gb'
+    ports: 
+        - 8888:8888
+        - 8787:8787
+        - 8501:8501
+        - 6006:6006  
+    volumes: ["/data:/data",
+              "/tmp:/tmp",
+              "~/Documents/Repos:/repos",  
+              "~/scratch:/scratch",
+              "/glacier:/glacier",
+              "/glacier2:/glacier2",
+              "~/misc/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py"]
+
+ 
