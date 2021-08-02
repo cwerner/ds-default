@@ -9,14 +9,10 @@ USER root
 
 WORKDIR /    
 
-COPY environment.pytorch-base.yml ./environment.yml
-COPY entrypoint.sh /usr/bin/entrypoint.sh
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Berlin
 
-RUN --mount=type=secret,id=AWS_ACCESS_KEY_ID                                   \
-    --mount=type=secret,id=AWS_SECRET_ACCESS_KEY                               \
-    export AWS_ACCESS_KEY_ID=$(cat /run/secrets/AWS_ACCESS_KEY_ID)           &&\
-    export AWS_SECRET_ACCESS_KEY=$(cat /run/secrets/AWS_SECRET_ACCESS_KEY)   &&\
-    apt-get update && apt-get -yq dist-upgrade                               &&\
+RUN apt-get update && apt-get -yq dist-upgrade                               &&\
     apt-get install -yq --no-install-recommends wget bzip2 ca-certificates     \
                                                 sudo locales fonts-liberation  \
                                                 run-one awscli               &&\
@@ -27,9 +23,13 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen
 # Add a script that we will use to correct permissions after running certain commands
 ADD fix-permissions /usr/local/bin/fix-permissions
 
+COPY environment.yml ./
+
 #
 RUN conda env update --file environment.yml && \
     conda clean --all -f -y
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh 
 
 RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" 
 
