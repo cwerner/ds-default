@@ -1,40 +1,28 @@
 name: base
 channels:
-        - pyviz
         - conda-forge
         - defaults
-          #- rapidsai
 dependencies:
-        - bottleneck
-        - bqplot
-        - cython
-        - category_encoders
+        - dvc-s3
+        - ipython
+        - ipywidgets
+        - jupyter
+        - jupyterlab=3
         - dask
-        - dask-ml  
-        - dask_labextension
+        - dask-ml
         - dask-xgboost
-          ##- rapidsai::dask-cuda
-          #- pytorch::pytorch
-          #- descartes
         - feather-format
         - joblib
         - intake
         - intake-geopandas
         - intake-xarray
-        - intake-stac
         - intake-thredds
-        - intake-parquet 
-        - ipython
-        - ipywidgets
-        - jupyter
-        - jupyterlab=2
-          #- bokeh
-          #- jupyter_bokeh
-        - matplotlib
+        - intake-parquet  
+        - bottleneck
         - netCDF4  
-        - nodejs
         - numpy
         - pandas
+        - panel
         - pyarrow
         - pygeos
         - proplot
@@ -46,33 +34,24 @@ dependencies:
         - statsmodels
         - urllib3
         - xarray
-        - xarray-spatial
+        - gdal
+        - rasterio
         - rioxarray
         - geopandas
-        - pyviz::geoviews  
+        - geoviews
         - xgboost
         - lightgbm
-        ## - rapidsai::rapids
         - hvplot
         - imgaug
         - albumentations
         - pip  
         - pip:
+                - jupyterlab_nvdashboard
+                - dask-labextension
+                - pyviz_comms
+                - monai
                 - kornia
-                - nbdev
                 - wandb
-                - torchvision #==0.6.1
                 - pytorch-lightning
-                - pytorch-lightning-bolts  
                 - pytorch-forecasting 
-                - skorch
-                - geffnet
-                  #- git+https://github.com/facebookresearch/fvcore
-                  #- git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI
-                  #- git+https://github.com/facebookresearch/detectron2
-                - git+https://github.com/rapidsai/jupyterlab-nvdashboard
-                - fastprogress
-                - dtreeviz
-                - bokeh
-                - jupyter-bokeh
 
